@@ -42,17 +42,29 @@ const TodoList = () => {
   
 
   const handleDeleteTodo = (id: number) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
-  };
+    const isConfirmed = window.confirm("ยืนยันการลบรายการนี้?");
+    if (isConfirmed) {
+    setTodos(todos.filter((todo) => todo.id !== id))
+    }
+  }
 
   const handleDeleteSelectedTodos = () => {
+    
+    const isConfirmed = window.confirm("ยืนยันการลบรายการที่เลือก?");
+    if (isConfirmed) {
     const selectedTodos = todos.filter((todo) => todo.completed);
     const newTodos = todos.filter((todo) => !todo.completed);
     setTodos(newTodos); // ลบรายการที่เลือก
+  }
   };
 
   const handleDeleteAllTodos = () => {
+    const isConfirmed = window.confirm("ยืนยันการลบทั้งหมด?");
+
+  if (isConfirmed) {
     setTodos([]); // ล้างข้อมูล todos ทั้งหมด
+  }
+   
   };
 
   return (
