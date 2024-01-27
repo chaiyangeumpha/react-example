@@ -6,16 +6,16 @@ const TodoList = () => {
   const [todos, setTodos] = useState<
     { id: number; text: string; completed: boolean }[]
   >([
-    // {
-    //   id: 1,
-    //   text: "Todo 1",
-    //   completed: false,
-    // },
-    // {
-    //   id: 2,
-    //   text: "Todo 2",
-    //   completed: false,
-    // },
+    {
+      id: 1,
+      text: "Todo 1",
+      completed: false,
+    },
+    {
+      id: 2,
+      text: "Todo 2",
+      completed: false,
+    },
   ]);
 
   const handleAddTodo = () => {
@@ -33,15 +33,26 @@ const TodoList = () => {
     setTodos(
       todos.map((todo) => {
         if (todo.id === id) {
-          todo.completed = true;
+          todo.completed = !todo.completed; // เปลี่ยนค่า completed ตรงข้าม
         }
         return todo;
       })
     );
   };
+  
 
   const handleDeleteTodo = (id: number) => {
     setTodos(todos.filter((todo) => todo.id !== id));
+  };
+
+  const handleDeleteSelectedTodos = () => {
+    const selectedTodos = todos.filter((todo) => todo.completed);
+    const newTodos = todos.filter((todo) => !todo.completed);
+    setTodos(newTodos); // ลบรายการที่เลือก
+  };
+
+  const handleDeleteAllTodos = () => {
+    setTodos([]); // ล้างข้อมูล todos ทั้งหมด
   };
 
   return (
@@ -54,6 +65,8 @@ const TodoList = () => {
       />
 
       <button onClick={handleAddTodo}>เพิ่มรายการ</button>
+      <button onClick={handleDeleteSelectedTodos}>ลบรายการที่เลือก</button>
+      <button onClick={handleDeleteAllTodos}>ลบทั้งหมด</button>
       <ul>
         {todos.map((todo) => (
           <li key={todo.id}>
